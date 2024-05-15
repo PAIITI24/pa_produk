@@ -1,0 +1,36 @@
+POST localhost:3002/produk/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "kategori_produk" : [1,2,3],
+  "data_produk" : {
+    "nama_obat" : "alat kecantikan 1000",
+    "harga" : 50000.0,
+    "deskripsi" : "alat kecatikan auto cantik"
+  }
+}
+
+###
+
+PUT localhost:3002/produk/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nama_obat" : "alat kecantikan 1000 oryza p!nk",
+  "harga" : 1250000.0,
+  "deskripsi" : "alat kecatikan auto cantik forever"
+}
+
+###
+
+GET localhost:3002/produk/
+
+###
+
+GET localhost:3002/produk/1
+
+###
+
+DELETE localhost:3002/produk/2

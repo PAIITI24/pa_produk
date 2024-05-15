@@ -1,0 +1,51 @@
+POST localhost:3002/produk/kategori
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nama_kategori_produk" : "obat jamu"
+}
+
+###
+
+POST localhost:3002/produk/kategori
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nama_kategori_produk" : "obat kencur"
+}
+
+###
+
+POST localhost:3002/produk/kategori
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nama_kategori_produk" : "obat jahe"
+}
+
+###
+
+GET localhost:3002/produk/kategori
+Accept: application/json
+
+###
+
+GET localhost:3002/produk/kategori/3
+Accept: application/json
+
+###
+
+PUT localhost:3002/produk/kategori/909
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nama_kategori_produk" : "obat baru anak iblis"
+}
+
+###
+
+DELETE localhost:3002/produk/kategori/1
