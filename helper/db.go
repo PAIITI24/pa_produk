@@ -19,7 +19,7 @@ var (
 		"",
 		"localhost",
 		3306,
-		"apotek_produk",
+		"apotek_barang",
 	}
 )
 
@@ -39,12 +39,8 @@ func DB() *gorm.DB {
 func Migrator() {
 	db := DB()
 
-	err := db.AutoMigrate(
-		&model.Produk{},
-		&model.KategoriProduk{},
+	db.AutoMigrate(
+		&model.Barang{},
+		&model.KategoriBarang{},
 	)
-
-	if err != nil {
-		panic(err)
-	}
 }

@@ -11,7 +11,7 @@ import (
 func AddKategori(ctx fiber.Ctx) error {
 	reqbody := ctx.Body()
 
-	var input model.KategoriProduk
+	var input model.KategoriBarang
 
 	err := json.Unmarshal(reqbody, &input)
 	if err != nil {
@@ -33,18 +33,18 @@ func AddKategori(ctx fiber.Ctx) error {
 }
 
 func ListKategori(ctx fiber.Ctx) error {
-	var QueryResult []model.KategoriProduk
+	var QueryResult []model.KategoriBarang
 
-	db.Preload("Produk").Find(&QueryResult)
+	db.Preload("Barang").Find(&QueryResult)
 
 	return ctx.Status(200).JSON(QueryResult)
 }
 
 func GetKategori(ctx fiber.Ctx) error {
-	var FoundKategori model.KategoriProduk
+	var FoundKategori model.KategoriBarang
 	id, _ := strconv.Atoi(ctx.Params("id"))
 
-	search := db.Preload("Produk").First(&FoundKategori, id)
+	search := db.Preload("Barang").First(&FoundKategori, id)
 
 	if search.RowsAffected <= 0 {
 		return ctx.Status(404).JSON(fiber.Map{
@@ -56,7 +56,7 @@ func GetKategori(ctx fiber.Ctx) error {
 }
 
 func UpdateKategori(ctx fiber.Ctx) error {
-	var update model.KategoriProduk         // where the data would be put
+	var update model.KategoriBarang         // where the data would be put
 	id, _ := strconv.Atoi(ctx.Params("id")) // take the id from the param
 
 	ttfrtu := db.Find(&update, id) // find the corresponding row by the id; ttfrtu : Try To Find Row To Update
@@ -89,10 +89,10 @@ func UpdateKategori(ctx fiber.Ctx) error {
 
 func DeleteKategori(ctx fiber.Ctx) error {
 	id, _ := strconv.Atoi(ctx.Params("id"))
-	var DeletedKategori model.KategoriProduk
+	var DeletedKategori model.KategoriBarang
 	db.Find(&DeletedKategori, id)
 
-	err := db.Model(&DeletedKategori).Association("Produk").Clear()
+	err := db.Model(&DeletedKategori).Association("Barang").Clear()
 	if err != nil {
 		return ctx.JSON(fiber.Map{
 			"status": 500,

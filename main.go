@@ -15,22 +15,22 @@ func main() {
 	server := fiber.New(
 		fiber.Config{
 			Immutable: false,
-			AppName:   "Produk_Apotek_APP",
+			AppName:   "barang_apotek_APP",
 		})
 
-	// kategori obat
-	server.Post("/produk/kategori", controller.AddKategori)
-	server.Get("/produk/kategori", controller.ListKategori)
-	server.Get("/produk/kategori/:id", controller.GetKategori)
-	server.Put("/produk/kategori/:id", controller.UpdateKategori)
-	server.Delete("/produk/kategori/:id", controller.DeleteKategori)
+	// kategori barang
+	server.Post("/barang/kategori", controller.AddKategori)
+	server.Get("/barang/kategori", controller.ListKategori)
+	server.Get("/barang/kategori/:id", controller.GetKategori)
+	server.Put("/barang/kategori/:id", controller.UpdateKategori)
+	server.Delete("/barang/kategori/:id", controller.DeleteKategori)
 
-	// obat
-	server.Post("/produk/", controller.AddProduk)
-	server.Get("/produk/", controller.ListProduk)
-	server.Get("/produk/:id", controller.GetProduk)
-	server.Put("/produk/:id", controller.UpdateProduk)
-	server.Delete("/produk/:id", controller.DeleteProduk)
+	// barang
+	server.Post("/barang/", controller.AddBarang)
+	server.Get("/barang/", controller.ListBarang)
+	server.Get("/barang/:id", controller.GetBarang)
+	server.Put("/barang/:id", controller.UpdateBarang)
+	server.Delete("/barang/:id", controller.DeleteBarang)
 
 	server.Listen(":3002")
 }

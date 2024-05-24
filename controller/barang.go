@@ -7,24 +7,24 @@ import (
 	"strconv"
 )
 
-func AddProduk(ctx fiber.Ctx) error {
+func AddBarang(ctx fiber.Ctx) error {
 
 	var data struct {
-		KategoriProduk []int        `json:"kategori_produk"`
-		DataProduk     model.Produk `json:"data_produk"`
+		KategoriBarang []int        `json:"kategori_barang"`
+		DataBarang     model.Barang `json:"data_barang"`
 	}
 
 	err := json.Unmarshal(ctx.Body(), &data)
 
-	produk := data.DataProduk
+	barang := data.DataBarang
 
 	// array of object model
-	var KategoriProduks []model.KategoriProduk
+	var KategoriBarangs []model.KategoriBarang
 
 	// fetch them
-	for _, v := range data.KategoriProduk {
-		var tempKategoriProduks model.KategoriProduk
-		search := db.Find(&tempKategoriProduks, v)
+	for _, v := range data.KategoriBarang {
+		var tempKategoriBarangs model.KategoriBarang
+		search := db.Find(&tempKategoriBarangs, v)
 
 		if search.RowsAffected == 0 {
 			return ctx.Status(fiber.StatusRequestedRangeNotSatisfiable).JSON(fiber.Map{
@@ -33,7 +33,7 @@ func AddProduk(ctx fiber.Ctx) error {
 			})
 		}
 
-		KategoriProduks = append(KategoriProduks, tempKategoriProduks)
+		KategoriBarangs = append(KategoriBarangs, tempKategoriBarangs)
 	}
 
 	if err != nil {
@@ -43,27 +43,28 @@ func AddProduk(ctx fiber.Ctx) error {
 		})
 	}
 
-	produk.KategoriProduk = KategoriProduks
-	db.Create(&produk) // save data
+	barang.KategoriBarang = KategoriBarangs
+	db.Create(&barang) // save data
 
 	return ctx.Status(200).JSON(fiber.Map{
 		"status": 200,
+		"data":   data,
 	})
 }
 
-func ListProduk(ctx fiber.Ctx) error {
-	var daftarObat []model.Produk
-	db.Preload("KategoriProduk").Find(&daftarObat)
+func ListBarang(ctx fiber.Ctx) error {
+	var daftarObat []model.Barang
+	db.Preload("KategoriBarang").Find(&daftarObat)
 
 	return ctx.Status(200).JSON(daftarObat)
 }
 
-func GetProduk(ctx fiber.Ctx) error {
+func GetBarang(ctx fiber.Ctx) error {
 
-	var dataObat model.Produk
+	var dataObat model.Barang
 
 	id, _ := strconv.Atoi(ctx.Params("id"))
-	result := db.Preload("KategoriProduk").Find(&dataObat, id)
+	result := db.Preload("KategoriBarang").Find(&dataObat, id)
 	if result.RowsAffected <= 0 {
 		ctx.Status(404).JSON(fiber.Map{
 			"status": 404,
@@ -73,8 +74,8 @@ func GetProduk(ctx fiber.Ctx) error {
 	return ctx.Status(200).JSON(dataObat)
 }
 
-func UpdateProduk(ctx fiber.Ctx) error {
-	var data model.Produk
+func UpdateBarang(ctx fiber.Ctx) error {
+	var data model.Barang
 
 	err := json.Unmarshal(ctx.Body(), &data)
 	if err != nil {
@@ -86,7 +87,7 @@ func UpdateProduk(ctx fiber.Ctx) error {
 
 	id, _ := strconv.Atoi(ctx.Params("id"))
 
-	status := db.Find(&model.Produk{}, id).Updates(&data)
+	status := db.Find(&model.Barang{}, id).Updates(&data)
 
 	if status.Error != nil {
 		ctx.Status(500).JSON(fiber.Map{
@@ -101,8 +102,8 @@ func UpdateProduk(ctx fiber.Ctx) error {
 	})
 }
 
-func DeleteProduk(ctx fiber.Ctx) error {
-	var obat model.Produk
+func DeleteBarang(ctx fiber.Ctx) error {
+	var obat model.Barang
 
 	// first fetch the id
 	id, _ := strconv.Atoi(ctx.Params("id"))
@@ -116,8 +117,8 @@ func DeleteProduk(ctx fiber.Ctx) error {
 		})
 	}
 
-	// delete the many-to-many association with KategoriProduk
-	err = db.Model(&obat).Association("KategoriProduk").Clear()
+	// delete the many-to-many association with KategoriBarang
+	err = db.Model(&obat).Association("KategoriBarang").Clear()
 	if err != nil {
 		return ctx.JSON(fiber.Map{
 			"status": 500,
