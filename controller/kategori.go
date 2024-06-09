@@ -41,7 +41,7 @@ func ListKategori(ctx fiber.Ctx) error {
 }
 
 func GetKategori(ctx fiber.Ctx) error {
-	var FoundKategori model.KategoriBarang
+	var FoundKategori []model.KategoriBarang
 	id, _ := strconv.Atoi(ctx.Params("id"))
 
 	search := db.Preload("Barang").First(&FoundKategori, id)

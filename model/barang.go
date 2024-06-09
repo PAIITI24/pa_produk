@@ -14,15 +14,15 @@ type Barang struct {
 	Deskripsi      string           `json:"deskripsi" gorm:"type:text;not null"`
 	CreatedAt      time.Time        `json:"created_at" gorm:"autoCreateTime" db:"created_at"`
 	UpdatedAt      time.Time        `json:"updated_at" gorm:"autoUpdateTime" db:"updated_at"`
-	KategoriBarang []KategoriBarang `json:"kategoi_barang,omitempty" gorm:"many2many:kategorisasi;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;""`
+	KategoriBarang []KategoriBarang `json:"kategori_barang,omitempty" gorm:"many2many:kategorisasi;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;""`
 }
 
 type KategoriBarang struct {
-	Id           int       `json:"id" gorm:"PrimaryKey"`
-	NamaKategori string    `json:"nama_kategori_barang" gorm:"type:varchar(50);not null"`
-	CreatedAt    time.Time `json:"created_at" gorm:"autoCreateTime"`
-	UpdatedAt    time.Time `json:"updated_at" gorm:"autoUpdateTime"`
-	Barang       []Barang  `json:"barang,omitempty" gorm:"many2many:kategorisasi;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;""`
+	Id                 int       `json:"id" gorm:"PrimaryKey"`
+	NamaKategoriBarang string    `json:"nama_kategori_barang" gorm:"type:varchar(50);"`
+	CreatedAt          time.Time `json:"created_at" gorm:"autoCreateTime"`
+	UpdatedAt          time.Time `json:"updated_at" gorm:"autoUpdateTime"`
+	Barang             []Barang  `json:"barang,omitempty" gorm:"many2many:kategorisasi;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
 
 func (B *KategoriBarang) MarshalJSON() ([]byte, error) {

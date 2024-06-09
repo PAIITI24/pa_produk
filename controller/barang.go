@@ -53,25 +53,25 @@ func AddBarang(ctx fiber.Ctx) error {
 }
 
 func ListBarang(ctx fiber.Ctx) error {
-	var daftarObat []model.Barang
-	db.Preload("KategoriBarang").Find(&daftarObat)
+	var dataBarang []model.Barang
+	db.Preload("KategoriBarang").Find(&dataBarang)
 
-	return ctx.Status(200).JSON(daftarObat)
+	return ctx.Status(200).JSON(dataBarang)
 }
 
 func GetBarang(ctx fiber.Ctx) error {
 
-	var dataObat model.Barang
+	var dataBarang []model.Barang
 
 	id, _ := strconv.Atoi(ctx.Params("id"))
-	result := db.Preload("KategoriBarang").Find(&dataObat, id)
+	result := db.Preload("KategoriBarang").Find(&dataBarang, id)
 	if result.RowsAffected <= 0 {
 		ctx.Status(404).JSON(fiber.Map{
 			"status": 404,
 		})
 	}
 
-	return ctx.Status(200).JSON(dataObat)
+	return ctx.Status(200).JSON(dataBarang)
 }
 
 func UpdateBarang(ctx fiber.Ctx) error {

@@ -38,12 +38,13 @@ Accept: application/json
 
 ###
 
-PUT localhost:3002/barang/kategori/4
+PUT localhost:3003/barang/kategori/9
 Content-Type: application/json
 Accept: application/json
+Authorization: abc123
 
 {
-  "nama_kategori_barang" : "obat baru anak iblis"
+  "nama_kategori_barang" : "obat kontol iblis"
 }
 
 ###
